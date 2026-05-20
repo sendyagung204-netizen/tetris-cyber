@@ -443,7 +443,9 @@
         </div>
       </div>
       
-      <button class="btn" id="resetBtn" style="padding: 10px; font-size: 0.7rem; background: var(--accent2); box-shadow: 0 0 15px var(--accent2);">RESET</button>
+            <button class="btn" id="pauseBtn" style="padding: 10px; font-size: 0.7rem; background: var(--accent); box-shadow: 0 0 15px var(--accent);">PAUSE</button>
+
+            <button class="btn" id="resetBtn" style="padding: 10px; font-size: 0.7rem; background: var(--accent2); box-shadow: 0 0 15px var(--accent2);">RESET</button>
       
     </div>
 
@@ -890,6 +892,8 @@ document.getElementById('startBtn').onclick = startGame;
 document.getElementById('restartBtn').onclick = startGame;
 document.getElementById('resumeBtn').onclick = togglePause;
 document.getElementById('resetBtn').onclick = startGame;
+document.getElementById('pauseBtn').onclick = togglePause;
+
 
 
 // MOBILE

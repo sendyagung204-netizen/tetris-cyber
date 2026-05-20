@@ -823,13 +823,6 @@ function initGame() {
 }
 
 function startGame() {
-  if (gameOver) {
-    resetGame();
-  }
-  startMusic(); // MUSIK MULAI SAAT TOMBOL START DITEKAN
-  gameLoop();
-}
-
   best = parseInt(localStorage.getItem('tetris_best')||'0');
   initGame();
   started = true;

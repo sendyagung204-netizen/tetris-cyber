@@ -553,6 +553,17 @@ const fx = {
   over: () => playSound(100, 'square', 0.5) // Suara game over
 };
 
+// BACKGROUND MUSIC GENERATOR
+function startMusic() {
+  const notes = [220, 246, 261, 293, 329, 261, 329, 220]; // Melodi sederhana
+  let i = 0;
+  setInterval(() => {
+    if (gameOver) return;
+    playSound(notes[i % notes.length], 'square', 0.2);
+    i++;
+  }, 500); // Tempo musik
+}
+
 
 // TETROMINOES
 const SHAPES = {
@@ -812,6 +823,13 @@ function initGame() {
 }
 
 function startGame() {
+  if (gameOver) {
+    resetGame();
+  }
+  startMusic(); // MUSIK MULAI SAAT TOMBOL START DITEKAN
+  gameLoop();
+}
+
   best = parseInt(localStorage.getItem('tetris_best')||'0');
   initGame();
   started = true;

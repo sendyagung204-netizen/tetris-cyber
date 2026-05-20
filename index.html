@@ -422,6 +422,31 @@
           </div>
         </div>
       </div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="panel">
+        <div class="panel-label">Score</div>
+        <div class="panel-value" id="scoreDisplay">0</div>
+        <div class="score-change" id="scoreChange"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-label">Best</div>
+        <div class="panel-value" id="bestDisplay">0</div>
+      </div>
+      <div class="panel">
+        <div class="panel-label">Lines</div>
+        <div class="panel-value" id="linesDisplay">0</div>
+        <div class="level-bar">
+          <div class="panel-label" style="margin-bottom:0">Level <span id="levelNum" style="color:var(--accent)">1</span></div>
+          <div class="level-track">
+            <div class="level-fill" id="levelBar"></div>
+          </div>
+        </div>
+      </div>
+      
+      <button class="btn" id="resetBtn" style="padding: 10px; font-size: 0.7rem; background: var(--accent2); box-shadow: 0 0 15px var(--accent2);">RESET</button>
+      
+    </div>
+
     </div>
 
     <!-- CANVAS -->
@@ -831,6 +856,8 @@ document.addEventListener('keydown', e => {
 document.getElementById('startBtn').onclick = startGame;
 document.getElementById('restartBtn').onclick = startGame;
 document.getElementById('resumeBtn').onclick = togglePause;
+document.getElementById('resetBtn').onclick = startGame;
+
 
 // MOBILE
 function mobileBtn(id, fn) {

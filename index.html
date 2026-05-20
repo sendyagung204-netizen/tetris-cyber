@@ -528,6 +528,12 @@ const nextCanvas = document.getElementById('nextCanvas');
 const nctx = nextCanvas.getContext('2d');
 
 const COLS = 10, ROWS = 20, BLOCK = 30;
+// MEMUAT REKOR TERTINGGI
+window.addEventListener('load', () => {
+  let savedBest = localStorage.getItem('tetrisCyberBest') || 0;
+  document.getElementById('bestDisplay').innerText = savedBest;
+});
+
 // SOUND ENGINE CYBERPUNK
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 function playSound(freq, type, duration) {
@@ -816,6 +822,12 @@ function startGame() {
 
 function endGame() {
   fx.over();
+  let currentBest = parseInt(document.getElementById('bestDisplay').innerText) || 0;
+  if (score > currentBest) {
+    localStorage.setItem('tetrisCyberBest', score);
+    document.getElementById('bestDisplay').innerText = score;
+  }
+
   gameOver = true;
   const el = document.getElementById('gameoverOverlay');
   el.classList.remove('hidden');

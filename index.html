@@ -528,6 +528,23 @@ const nextCanvas = document.getElementById('nextCanvas');
 const nctx = nextCanvas.getContext('2d');
 
 const COLS = 10, ROWS = 20, BLOCK = 30;
+// SOUND ENGINE CYBERPUNK
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playSound(freq, type, duration) {
+  if(audioCtx.state === 'suspended') audioCtx.resume();
+  const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
+  osc.type = type; osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  osc.start(); osc.stop(audioCtx.currentTime + duration);
+}
+const fx = {
+  lock: () => playSound(150, 'sawtooth', 0.1), // Suara balok mendarat
+  clear: () => { playSound(600, 'sine', 0.1); setTimeout(()=>playSound(800, 'sine', 0.2), 100); }, // Suara baris hancur
+  over: () => playSound(100, 'square', 0.5) // Suara game over
+};
+
 
 // TETROMINOES
 const SHAPES = {
@@ -592,12 +609,14 @@ function rotatePiece(p) {
 }
 
 function lockPiece() {
+  fx.lock();
   piece.cells.forEach(([cx,cy]) => {
     const ny = piece.y+cy;
     if (ny >= 0) board[ny][piece.x+cx] = piece.color;
   });
   clearLines();
   spawnPiece();
+
 }
 
 function clearLines() {
@@ -610,8 +629,9 @@ function clearLines() {
       r++;
     }
   }
-  if (cleared > 0) {
-    const pts = SCORE_TABLE[cleared] * level;
+    if (cleared > 0) {
+    fx.clear();
+    const pts = SCORE_TABLE[cleared] * level
     score += pts;
     lines += cleared;
     showScoreChange('+'+pts);
@@ -795,6 +815,7 @@ function startGame() {
 }
 
 function endGame() {
+  fx.over();
   gameOver = true;
   const el = document.getElementById('gameoverOverlay');
   el.classList.remove('hidden');
